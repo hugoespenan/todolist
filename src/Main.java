@@ -1,4 +1,5 @@
 import Utilisateur.Utilisateur;
+import liste.Liste;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -8,6 +9,7 @@ public class Main {
         int connected = 0;
         Scanner scanner = new Scanner(System.in);
         Connection maco = DriverManager.getConnection("jdbc:mysql://localhost:3306/todolist", "root", "");
+        Utilisateur co = new Utilisateur();
         while (connected == 0) {
             System.out.println("Etes vous inscrit : (O)ui/(N)on");
             String choix = scanner.nextLine().toUpperCase();
@@ -15,7 +17,6 @@ public class Main {
                 System.out.println("Veuillez entrez O pour oui et N pour non");
                 choix = scanner.nextLine().toUpperCase();
             }
-            Utilisateur co = new Utilisateur();
             if (choix.equals("O")) {
                 connected = co.connexion();
             }
@@ -29,11 +30,16 @@ public class Main {
             System.out.println("-(C)réer une liste");
             System.out.println("-(G)érer une liste");
             System.out.println("-(GE)rer une tâche");
+            System.out.println("-(AJ)outer une tâche");
             System.out.println("-(A)fficher mes listes");
             System.out.println("-(AF)ficher les tâches d'une de mes liste");
             System.out.println("-(AFF)icher une tâche");
             String nchoix = scanner.nextLine().toUpperCase();
-            if (nchoix.equals("C")){
+            if (nchoix.equals("A")){
+                Liste afficher = new Liste();
+                System.out.println(afficher.afficherlistes(co.recupId()));
+            }
+            if (nchoix.equals("AJ")){
 
             }
         }

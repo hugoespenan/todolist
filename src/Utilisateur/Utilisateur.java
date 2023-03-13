@@ -14,6 +14,14 @@ public class Utilisateur {
     public Utilisateur() throws SQLException {
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
     public int connexion() throws SQLException {
         int connected = 0;
         System.out.println("---------Connectez-vous---------");
@@ -21,15 +29,30 @@ public class Utilisateur {
         String login = scanner.nextLine();
         System.out.println("Votre mdp : ");
         String mdp = scanner.nextLine();
-        PreparedStatement connexionrequ = maco.prepareStatement("SELECT * FROM utilisateur WHERE login = ? and mdp = ?");
+        PreparedStatement connexionrequ = maco.prepareStatement("SELECT id_utilisateur FROM utilisateur WHERE login = ? and mdp = ?");
         connexionrequ.setString(1, login);
         connexionrequ.setString(2, mdp);
         ResultSet res = connexionrequ.executeQuery();
 
         if (res.next()) {
             connected = 1;
+            this.login = login;
+            this.mdp = mdp;
         }
         return connected;
+    }
+
+    public int recupId() throws SQLException {
+        int id = 0;
+        PreparedStatement connexionrequ = maco.prepareStatement("SELECT id_utilisateur FROM utilisateur WHERE login = ? and mdp = ?");
+        connexionrequ.setString(1, this.login);
+        connexionrequ.setString(2, this.mdp);
+        ResultSet res = connexionrequ.executeQuery();
+
+        if (res.next()) {
+            id = res.getInt(1);
+        }
+        return id;
     }
 
     public void inscription() throws SQLException {
