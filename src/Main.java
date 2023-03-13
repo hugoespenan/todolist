@@ -42,6 +42,12 @@ public class Main {
             if (nchoix.equals("AJ")){
 
             }
+            if (nchoix.equals("AF")){
+                Liste afficher = new Liste();
+                System.out.println("Indiquer la référence de la liste :");
+                int ref_type = scanner.nextInt();
+                System.out.println(afficher.);
+            }
         }
 
 

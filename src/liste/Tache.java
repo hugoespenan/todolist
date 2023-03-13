@@ -1,9 +1,6 @@
 package liste;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Tache {
     private String nom;
@@ -30,6 +27,17 @@ public class Tache {
         crea.setInt(4,ref_liste);
         crea.setInt(5,ref_type);
         crea.executeUpdate();
+    }
+
+    public String afficherTaches(int ref_liste)throws SQLException{
+        PreparedStatement aff = maco.prepareStatement("SELECT nom, description, id_tache,ref_liste FROM tache WHERE ref_liste = ?");
+        aff.setInt(1, ref_liste);
+        ResultSet resultat = aff.executeQuery();
+        String a = "";
+        while (resultat.next()){
+            a = a+"- Le nom de cette tache est "+resultat.getString(1)+" voici sa description "+resultat.getString(2)+" et son id "+resultat.getInt(3)+ " et la référence de sa liste est "+resultat.getInt(4)  +"\n";
+        }
+        return a;
     }
 
 }
